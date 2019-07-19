@@ -8,7 +8,8 @@ class StorePicker extends React.Component {
     goToStore = (e) => {
         // Stop the form from Submitting by usual means
         e.preventDefault();
-        console.log(this.myInput.current.value);
+        const storeName = this.myInput.current.value;
+        this.props.history.push(`/store/${storeName}`);
     };
 
     render() {
