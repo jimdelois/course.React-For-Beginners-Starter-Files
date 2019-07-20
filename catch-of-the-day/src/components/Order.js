@@ -7,6 +7,11 @@ class Order extends React.Component {
     renderOrder = (key) => {
         const fish = this.props.fishes[key];
         const count = this.props.order[key];
+
+        // Ensure fish has been loaded from Firebase
+        //  Would promises from Firebase help here?
+        if (!fish) return null;
+
         const isAvailable = fish.status === 'available';
         if (!isAvailable) {
             return <li key={key}>
