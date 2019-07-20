@@ -1,4 +1,5 @@
 import React  from 'react';
+import PropTypes from 'prop-types';
 import Header from './Header';
 import Inventory from './Inventory';
 import Order from './Order';
@@ -8,6 +9,10 @@ import base from '../base';
 
 
 class App extends React.Component {
+
+    static propTypes = {
+        match: PropTypes.object // This comes from the Router, no specific need to "shape" it here.
+    };
 
     state = {
         fishes: {},

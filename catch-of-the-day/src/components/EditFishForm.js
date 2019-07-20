@@ -1,6 +1,19 @@
 import React  from 'react';
+import PropTypes from 'prop-types';
 
 class EditFirstForm extends React.Component {
+
+    static propTypes = {
+        fish: PropTypes.shape({ // This structure is also used in Fish.js . Could consider moving to separate file
+            image: PropTypes.string,
+            name: PropTypes.string,
+            desc: PropTypes.string,
+            status: PropTypes.string,
+            price: PropTypes.number,
+        }),
+        index: PropTypes.string,
+        updateFish: PropTypes.func
+    };
 
     handleChange = (e) => {
         // Take copy of the current fish, update it

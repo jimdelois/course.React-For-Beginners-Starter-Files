@@ -1,4 +1,5 @@
 import React  from 'react';
+import PropTypes from 'prop-types';
 
 // Stateless components get "props" passed in, so you can destructure it here.
 const Header = ({tagline}) => (
@@ -16,5 +17,9 @@ const Header = ({tagline}) => (
         </h3>
     </header>
 );
+
+Header.propTypes = {
+    tagline: PropTypes.string.isRequired
+};
 
 export default Header;
