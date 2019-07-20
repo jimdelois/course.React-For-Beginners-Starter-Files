@@ -1,6 +1,7 @@
 import React  from 'react';
 import Header from './Header';
 import Inventory from './Inventory';
+import Order from './Order';
 import Fish from './Fish';
 import sampleFishes from '../sample-fishes';
 
@@ -20,6 +21,15 @@ class App extends React.Component {
         this.setState({ fishes });
     };
 
+    addToOrder = key => {
+        // Take a copy of state
+        const order = { ...this.state.order };
+        // Either add to order to update order count
+        order[key] = order[key] + 1 || 1
+        // Adust and replace
+        this.setState( { order });
+    };
+
     loadSampleFishes = () => {
         this.setState( { fishes: sampleFishes });
     };
@@ -31,11 +41,18 @@ class App extends React.Component {
                     <Header tagline="Fresh-ish Seafood" />
                     <ul className="fishes">
                         {Object.keys(this.state.fishes).map((key) => {
-                            return <Fish key={key} details={this.state.fishes[key]}/>
+                            return <Fish
+                                    key={key}
+                                    // "key", above, actually isn't accessible to the component
+                                    // So need to pass the same value in elsewhere if we need it.
+                                    index={key}
+                                    details={this.state.fishes[key]}
+                                    addToOrder={this.addToOrder}
+                            />
                         })}
                     </ul>
                 </div>
-                {/*<Order />*/}
+                <Order />
                 <Inventory addFish={this.addFish} loadSampleFishes={this.loadSampleFishes}/>
             </div>
         );
