@@ -45,8 +45,20 @@ class App extends React.Component {
     };
 
     updateFish = (key, updatedFish) => {
+        // Copy state
         const fishes = { ...this.state.fishes };
+        // Update
         fishes[key] = updatedFish;
+        // Set
+        this.setState({ fishes });
+    };
+
+    deleteFish = (key) => {
+        // Copy state
+        const fishes = { ...this.state.fishes };
+        // Update (Firebase wants this "null" as opposed to calling "delete fishes[key]"
+        fishes[key] = null;
+        // Set
         this.setState({ fishes });
     };
 
@@ -57,6 +69,15 @@ class App extends React.Component {
         order[key] = order[key] + 1 || 1
         // Adust and replace
         this.setState( { order });
+    };
+
+    removeFromOrder = key => {
+        // Copy
+        const order = { ...this.state.order };
+        // Update (not using Firebase, so can delete directly)
+        delete order[key];
+        // Set
+        this.setState({ order });
     };
 
     loadSampleFishes = () => {
@@ -84,10 +105,12 @@ class App extends React.Component {
                 <Order
                     fishes={this.state.fishes}
                     order={this.state.order}
+                    removeFromOrder={this.removeFromOrder}
                 />
                 <Inventory
                     addFish={this.addFish}
                     updateFish={this.updateFish}
+                    deleteFish={this.deleteFish}
                     loadSampleFishes={this.loadSampleFishes}
                     fishes={this.state.fishes}
                 />
